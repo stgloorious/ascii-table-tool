@@ -21,36 +21,38 @@ const char *headings[3];
 const unsigned int wrap_default = 32;
 const unsigned int start_default = 0;
 const unsigned int end_default = 127;
-char* filename_default = "ascii.tex";
-char* dlabel_default = "Decimal";
-char* hlabel_default = "Hex";
-char* clabel_default = "Char";
+char filename_default[] = "ascii.tex";
+char dlabel_default[] = "Decimal";
+char hlabel_default[] = "Hex";
+char clabel_default[] = "Char";
 
 static char doc[] = "A minimal tool to generate .tex code for ASCII tables";
 const char *argp_program_version = "ascii-table-tool v0.1";
 static struct argp_option options [] = {
-	{"wrap", 'w', "n", 0, "Number of lines before the table wraps to the next column"},
-	{"start", 's', "n", 0, "Character code to start with"},
-	{"end", 'e', "n", 0, "Character code to end with"},
-	{"output", 'o',"file",0,"Output filename, default is ascii.tex"},
-	{"standalone",'a',0,0,"Creates standalone latex files"},
-	{"hex", 'h', 0,0,"Only create the hexadecimal column"},
-	{"dec", 'd', 0,0,"Only create the decimal column"},
-	{"hlabel",1,"string",0,"Modify the hexadecimal label"},
-	{"dlabel",2,"string",0,"Modify the decimal label"},
-	{"clabel",3,"string",0,"Modify the char label"}
+	{"wrap", 	'w',	"n",		0,"Number of lines before the table wraps to the next column"},
+	{"start", 	's',	"n",		0,"Character code to start with"},
+	{"end", 	'e',	"n",		0,"Character code to end with"},
+	{"output", 	'o',	"FILE",		0,"Output filename, default is ascii.tex"},
+	{"standalone",	'a',	0,		0,"Creates standalone latex files"},
+	{"hex", 	'h',	0,		0,"Only create the hexadecimal column"},
+	{"dec", 	'd',	0,		0,"Only create the decimal column"},
+	{"hlabel",	'1',	"STRING",	0,"Modify the hexadecimal label"},
+	{"dlabel",	'2',	"STRING",	0,"Modify the decimal label"},
+	{"clabel",	'3',	"STRING",	0,"Modify the char label"},
+	{0}
 };
 
 struct arguments{
+	char *args[1];
 	unsigned int wrap;
 	unsigned int start;
 	unsigned int end;
 	char* filename;
 	bool hex; //indicates hex-only mode
 	bool dec; //indicates dec-only mode
-	char *hlabel;
-	char *dlabel;
-	char *clabel;
+	char* hlabel;
+	char* dlabel;
+	char* clabel;
 	bool wrapSet; //indicates if wrap value has been set explicitly
 	bool standalone;
 };
@@ -113,6 +115,7 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state){
 			if (state->arg_num>=0){
 				argp_usage (state);
 			}
+			arguments->args[state->arg_num]=arg;
 			break;
 		default:
 			return ARGP_ERR_UNKNOWN;
