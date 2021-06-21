@@ -36,9 +36,9 @@ static struct argp_option options [] = {
 	{"standalone",	'a',	0,		0,"Creates standalone latex files"},
 	{"hex", 	'h',	0,		0,"Only create the hexadecimal column"},
 	{"dec", 	'd',	0,		0,"Only create the decimal column"},
-	{"hlabel",	'1',	"STRING",	0,"Modify the hexadecimal label"},
-	{"dlabel",	'2',	"STRING",	0,"Modify the decimal label"},
-	{"clabel",	'3',	"STRING",	0,"Modify the char label"},
+	{"hlabel",	'H',	"STRING",	0,"Modify the hexadecimal label"},
+	{"dlabel",	'D',	"STRING",	0,"Modify the decimal label"},
+	{"clabel",	'C',	"STRING",	0,"Modify the char label"},
 	{0}
 };
 
@@ -102,13 +102,13 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state){
 				return EINVAL;
 			}
 			break;
-		case 1://hex label
+		case 'H'://hex label
 			arguments->hlabel=arg;
 			break;
-		case 2://decimal label
+		case 'D'://decimal label
 			arguments->dlabel=arg;
 			break;
-		case 3://char label
+		case 'C'://char label
 			arguments->clabel=arg;
 			break;
 		case ARGP_KEY_ARG://we don't want arguments
