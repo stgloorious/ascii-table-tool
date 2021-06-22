@@ -32,5 +32,5 @@ The available options are:
 Create a table in standalone mode and directly compile it:
 ```./ascii -s -o table.tex && pdflatex "table.tex" ```
 
-
+Animation with different ```--end``` values showing automatic wrap-around to next column:
 ![table-animation](https://github.com/stgloorious/ascii-table-tool/blob/master/doc/animation.gif)
